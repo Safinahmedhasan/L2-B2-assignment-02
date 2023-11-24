@@ -2,8 +2,8 @@ import { Schema, model } from 'mongoose';
 import { User } from './user.interface';
 
 const userSchema = new Schema<User>({
-  userId: { type: Number, required: true },
-  username: { type: String, required: true },
+  userId: { type: Number, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: {
     firstName: { type: String, required: true },
@@ -12,7 +12,7 @@ const userSchema = new Schema<User>({
   age: { type: Number, required: true },
   email: { type: String, required: true },
   isActive: { type: Boolean, required: true },
-  hobbies: { type: [String, String], required: true },
+  hobbies: { type: [String], required: true },
   address: {
     street: { type: String, required: true },
     city: { type: String, required: true },
@@ -20,6 +20,4 @@ const userSchema = new Schema<User>({
   },
 });
 
-
-
-export const UserModel = model<User>('User', userSchema)
+export const UserModel = model<User>('User', userSchema);
