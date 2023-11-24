@@ -15,20 +15,44 @@ const getAllUserFromDB = async () => {
 };
 
 const getSingleUserFromDB = async (userId: string) => {
+  const existingUser: any = await User.isUserExists(userId);
+
+  if (!existingUser) {
+    throw new Error('User not found');
+  }
+
+  // Omit the password field from the response data
+  const { password, ...userDataWithoutPassword } = existingUser.toObject();
+
+  return userDataWithoutPassword;
+};
+
+const updateUserInDB = async (userId: string, updatedUserData: TUser) => {
   const existingUser = await User.isUserExists(userId);
 
   if (!existingUser) {
     throw new Error('User not found');
   }
 
-  return existingUser;
-};
+  // Omit the password field from the updated data
+  const { password, ...updatedDataWithoutPassword } = updatedUserData;
 
-const updateUserInDB = async (userId: string, updatedUserData: TUser) => {
-  const result = await User.findOneAndUpdate({ userId }, updatedUserData, {
-    new: true,
-  });
-  return result;
+  // Update the user and retrieve the updated document
+  const result = await User.findOneAndUpdate(
+    { userId },
+    updatedDataWithoutPassword,
+    {
+      new: true,
+    }
+  );
+
+  if (!result) {
+    throw new Error('Failed to update user');
+  }
+  const { password: updatedPassword, ...updatedUserDataWithoutPassword } =
+    result.toObject();
+
+  return updatedUserDataWithoutPassword;
 };
 
 const deleteUserFromDB = async (userId: string) => {
