@@ -5,12 +5,9 @@ import userSchema from './user.validation';
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user: userData } = req.body;
-
-    // data validation using zod
-
-    const zodParseData = userSchema.parse(userData);
-
-    const result = await UserServices.createUserIntoDB(zodParseData);
+    const result = await UserServices.createUserIntoDB(
+      userSchema.parse(userData)
+    );
 
     res.status(200).json({
       success: true,
@@ -18,7 +15,9 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
+    res
+      .status(500)
+      .json({ success: false, message: 'Something Is Wrong', error: err });
   }
 };
 
@@ -51,8 +50,62 @@ const getSingleUsers = async (req: Request, res: Response) => {
   }
 };
 
+
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await UserServices.deleteUserFromDB(userId);
+
+    if (!result) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found', data: null });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully!',
+      data: null,
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, message: 'Something went wrong', error: err });
+  }
+};
+
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { user: updatedUserData } = req.body;
+
+    const result = await UserServices.updateUserInDB(userId, updatedUserData);
+
+    if (!result) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found', data: null });
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: 'User updated successfully!',
+        data: result,
+      });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, message: 'Something went wrong', error: err });
+  }
+};
+
 export const UserControllers = {
   createUser,
   getAllUsers,
   getSingleUsers,
+  deleteUser,
+  updateUser,
 };
