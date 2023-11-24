@@ -14,10 +14,12 @@ const createUser = async (req: Request, res: Response) => {
       message: 'User created successfully!',
       data: result,
     });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ success: false, message: 'Something Is Wrong', error: err });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Something Is Wrong',
+      error: err,
+    });
   }
 };
 
@@ -45,12 +47,14 @@ const getSingleUsers = async (req: Request, res: Response) => {
       message: 'Users fetched successfully',
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Something Is Wrong',
+      error: err,
+    });
   }
 };
-
-
 
 const deleteUser = async (req: Request, res: Response) => {
   try {
@@ -88,13 +92,11 @@ const updateUser = async (req: Request, res: Response) => {
         .json({ success: false, message: 'User not found', data: null });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: 'User updated successfully!',
-        data: result,
-      });
+    res.status(200).json({
+      success: true,
+      message: 'User updated successfully!',
+      data: result,
+    });
   } catch (err) {
     res
       .status(500)
