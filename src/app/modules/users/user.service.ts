@@ -13,8 +13,18 @@ const createUserIntoDB = async (userData: TUser) => {
 // Get all User From DB
 const getAllUserFromDB = async () => {
   const result = await User.find();
-  return result;
+
+  if (!result) {
+    throw new Error('Users not found');
+  }
+  const userAllDataWithoutPassword = result.map((user) => {
+    const { password, ...userDataWithoutPassword } = user.toObject();
+    return userDataWithoutPassword;
+  });
+
+  return userAllDataWithoutPassword;
 };
+
 
 
 // Get Single User From DB
