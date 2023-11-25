@@ -46,9 +46,11 @@ userSchema.post('save', function (doc, next) {
 });
 
 // creating a custom static method
-userSchema.statics.isUserExists = async function (userId: string) {
+userSchema.statics.isUserExists = async function (userId: number) {
   const existingUser = await User.findOne({ userId });
   return existingUser;
 };
+
+
 
 export const User = model<TUser, UserModel>('User', userSchema);

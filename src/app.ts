@@ -13,17 +13,9 @@ app.use(cors());
 app.use('/api/users' , UserRouter)
 
 
-const getAController = (req: Request, res: Response) => {
-  const a = 10;
-  res.send(a)
- }
-
-app.get('/', getAController);
-
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-//   });
-  
+app.get('/', (req: Request, res: Response) => {
+  res.send(`server in running ${process.env.PORT}`);
+});
 
 
 export default app
