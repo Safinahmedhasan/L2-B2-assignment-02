@@ -109,7 +109,7 @@ const updateUser = async (req: Request, res: Response) => {
   } catch (err) {
     res
       .status(500)
-      .json({ success: false, message: 'Something went wrong', error: err });
+      .json({ success: false, message: 'User not found', error: err });
   }
 };
 
