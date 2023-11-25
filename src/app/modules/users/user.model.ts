@@ -20,6 +20,14 @@ const userSchema = new Schema<TUser, UserModel>({
     city: { type: String, required: true },
     country: { type: String, required: true },
   },
+
+  orders: [
+    {
+      productName: { type: String },
+      price: { type: Number },
+      quantity: { type: Number },
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
@@ -36,8 +44,6 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
-
-
 
 // creating a custom static method
 userSchema.statics.isUserExists = async function (userId: string) {
