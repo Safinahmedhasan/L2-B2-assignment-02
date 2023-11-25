@@ -11,12 +11,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use('/api/users', user_route_1.UserRouter);
-const getAController = (req, res) => {
-    const a = 10;
-    res.send(a);
-};
-app.get('/', getAController);
-//   app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-//   });
+app.get('/', (req, res) => {
+    res.send(`server in running ${process.env.PORT}`);
+});
 exports.default = app;

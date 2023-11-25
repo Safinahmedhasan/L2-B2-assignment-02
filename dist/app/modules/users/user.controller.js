@@ -25,6 +25,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             message: 'User created successfully!',
             data: result,
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({
@@ -52,12 +53,13 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const getSingleUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const result = yield user_service_1.UserServices.getSingleUserFromDB(Number(userId));
+        const result = yield user_service_1.UserServices.getSingleUserFromDB(userId);
         res.status(200).json({
             success: true,
-            message: 'User fetched successfully',
+            message: 'Users fetched successfully',
             data: result,
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({
@@ -117,12 +119,13 @@ const addOrderToUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { userId } = req.params;
         const { order } = req.body;
-        const result = yield user_service_1.UserServices.addOrderToUser(Number(userId), order);
+        const result = yield user_service_1.UserServices.addOrderToUser(userId, order);
         res.status(200).json({
             success: true,
             message: 'Order created successfully!',
             data: result,
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({
@@ -141,6 +144,7 @@ const getAllOrdersForUser = (req, res) => __awaiter(void 0, void 0, void 0, func
             message: 'Orders fetched successfully',
             data: result,
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({
@@ -153,12 +157,13 @@ const getAllOrdersForUser = (req, res) => __awaiter(void 0, void 0, void 0, func
 const calculateTotalPriceForUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const result = yield user_service_1.UserServices.calculateTotalPriceForUser(Number(userId));
+        const result = yield user_service_1.UserServices.calculateTotalPriceForUser(userId);
         res.status(200).json({
             success: true,
             message: 'Total price calculated successfully',
             data: result,
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({
