@@ -16,6 +16,7 @@ const createUser = async (req: Request, res: Response) => {
       message: 'User created successfully!',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -24,7 +25,6 @@ const createUser = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 // Get all user
 const getAllUsers = async (req: Request, res: Response) => {
@@ -41,7 +41,6 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-
 // get single user
 const getSingleUsers = async (req: Request, res: Response) => {
   try {
@@ -53,6 +52,7 @@ const getSingleUsers = async (req: Request, res: Response) => {
       message: 'Users fetched successfully',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -61,7 +61,6 @@ const getSingleUsers = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 // a single user deleted
 const deleteUser = async (req: Request, res: Response) => {
@@ -125,6 +124,7 @@ const addOrderToUser = async (req: Request, res: Response) => {
       message: 'Order created successfully!',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -144,6 +144,7 @@ const getAllOrdersForUser = async (req: Request, res: Response) => {
       message: 'Orders fetched successfully',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,
@@ -163,6 +164,7 @@ const calculateTotalPriceForUser = async (req: Request, res: Response) => {
       message: 'Total price calculated successfully',
       data: result,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,
