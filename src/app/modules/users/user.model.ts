@@ -21,13 +21,14 @@ const userSchema = new Schema<TUser, UserModel>({
     country: { type: String, required: true },
   },
 
-  orders: [
-    {
-      productName: { type: String },
-      price: { type: Number },
-      quantity: { type: Number },
-    },
-  ],
+orders: [
+  {
+    productName: { type: String },
+    price: { type: Number },
+    quantity: { type: Number },
+  },
+],
+
 });
 
 userSchema.pre('save', async function (next) {

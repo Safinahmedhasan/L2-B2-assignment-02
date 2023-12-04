@@ -6,10 +6,10 @@ import userSchema from './user.validation';
 // Create User
 const createUser = async (req: Request, res: Response) => {
   try {
-    const { user: userData } = req.body;
-    const result = await UserServices.createUserIntoDB(
-      userSchema.parse(userData)
-    );
+  const userData = req.body;
+  const result = await UserServices.createUserIntoDB(
+    userSchema.parse(userData)
+  );
 
     res.status(200).json({
       success: true,
@@ -24,6 +24,7 @@ const createUser = async (req: Request, res: Response) => {
       error: err,
     });
   }
+
 };
 
 // Get all user
@@ -90,8 +91,7 @@ const deleteUser = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const { user: updatedUserData } = req.body;
-
+    const updatedUserData = req.body;
     const result = await UserServices.updateUserInDB(userId, updatedUserData);
 
     if (!result) {
@@ -113,7 +113,6 @@ const updateUser = async (req: Request, res: Response) => {
 };
 
 // Order ---------------
-
 const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;

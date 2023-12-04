@@ -2,7 +2,6 @@ import { TUser } from './user.interface';
 import { User } from './user.model';
 import { TOrder } from './user.interface';
 
-
 // Create a user
 const createUserIntoDB = async (userData: TUser) => {
   if (await User.isUserExists(userData.userId)) {
@@ -27,8 +26,6 @@ const getAllUserFromDB = async () => {
   return userAllDataWithoutPassword;
 };
 
-
-
 // Get Single User From DB
 const getSingleUserFromDB = async (userId: string) => {
   const existingUser: any = await User.isUserExists(userId);
@@ -41,9 +38,8 @@ const getSingleUserFromDB = async (userId: string) => {
   return userDataWithoutPassword;
 };
 
-
-// Update User 
-const updateUserInDB = async (userId: string, updatedUserData: TUser) => {
+// Update User
+const updateUserInDB = async (userId: number, updatedUserData: TUser) => {
   const existingUser = await User.isUserExists(userId);
 
   if (!existingUser) {
@@ -67,7 +63,6 @@ const updateUserInDB = async (userId: string, updatedUserData: TUser) => {
   return updatedUserDataWithoutPassword;
 };
 
-
 // Deleted User From DB
 const deleteUserFromDB = async (userId: string) => {
   const result = await User.findOneAndDelete({ userId });
@@ -75,8 +70,7 @@ const deleteUserFromDB = async (userId: string) => {
 };
 
 // Order Section ----
-
-// Added Oder
+// Added Order
 const addOrderToUser = async (userId: string, orderData: TOrder) => {
   const existingUser = await User.isUserExists(userId);
 
@@ -84,12 +78,19 @@ const addOrderToUser = async (userId: string, orderData: TOrder) => {
     throw new Error('User not found');
   }
 
+  // Initialize orders array if it's undefined
+  existingUser.orders = existingUser.orders || [];
+
+  // Add the new order to the orders array
   existingUser.orders.push(orderData);
 
   const result = await existingUser.save();
 
   return result;
 };
+
+
+// ... (rest of the file remains unchanged)
 
 // Get all Order
 const getAllOrdersForUser = async (userId: string) => {
@@ -103,7 +104,6 @@ const getAllOrdersForUser = async (userId: string) => {
 
   return { orders };
 };
-
 
 // User Order Calculate
 const calculateTotalPriceForUser = async (userId: string) => {
