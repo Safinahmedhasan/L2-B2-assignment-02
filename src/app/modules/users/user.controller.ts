@@ -25,7 +25,6 @@ const createUser = async (req: Request, res: Response) => {
       error: err,
     });
   }
-
 };
 
 // Get all user
