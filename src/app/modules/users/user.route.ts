@@ -18,7 +18,7 @@ router.delete('/users/:userId', UserControllers.deleteUser);
 // update user route
 router.put('/users/:userId', UserControllers.updateUser);
 
-// user order create route
+// Add Order to User route
 router.put('/users/:userId/orders', UserControllers.addOrderToUser);
 
 // single user order show route

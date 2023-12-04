@@ -1,6 +1,5 @@
-import { TUser } from './user.interface';
+import { TOrder, TUser } from './user.interface';
 import { User } from './user.model';
-import { TOrder } from './user.interface';
 
 // Create a user
 const createUserIntoDB = async (userData: TUser) => {
@@ -70,7 +69,7 @@ const deleteUserFromDB = async (userId: string) => {
 };
 
 // Order Section ----
-// Added Order
+// Add Order to User
 const addOrderToUser = async (userId: string, orderData: TOrder) => {
   const existingUser = await User.isUserExists(userId);
 
@@ -78,19 +77,15 @@ const addOrderToUser = async (userId: string, orderData: TOrder) => {
     throw new Error('User not found');
   }
 
-  // Initialize orders array if it's undefined
-  existingUser.orders = existingUser.orders || [];
+  if (!existingUser.orders) {
+    existingUser.orders = [];
+  }
 
-  // Add the new order to the orders array
   existingUser.orders.push(orderData);
+  await existingUser.save();
 
-  const result = await existingUser.save();
-
-  return result;
+  return null;
 };
-
-
-// ... (rest of the file remains unchanged)
 
 // Get all Order
 const getAllOrdersForUser = async (userId: string) => {

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserServices } from './user.service';
 import userSchema from './user.validation';
+import { TOrder } from './user.interface';
 
 
 // Create User
@@ -112,18 +113,20 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-// Order ---------------
+
+// Add Order to User
 const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const { order } = req.body;
-    const result = await UserServices.addOrderToUser(userId, order);
+    const orderData: TOrder = req.body;
+
+    await UserServices.addOrderToUser(userId, orderData);
+
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
-      data: result,
+      data: null,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     res.status(500).json({
       success: false,

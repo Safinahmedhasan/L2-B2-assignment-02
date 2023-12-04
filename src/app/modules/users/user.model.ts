@@ -20,15 +20,7 @@ const userSchema = new Schema<TUser, UserModel>({
     city: { type: String, required: true },
     country: { type: String, required: true },
   },
-
-orders: [
-  {
-    productName: { type: String },
-    price: { type: Number },
-    quantity: { type: Number },
-  },
-],
-
+  orders: [{ productName: String, price: Number, quantity: Number }],
 });
 
 userSchema.pre('save', async function (next) {
@@ -51,7 +43,5 @@ userSchema.statics.isUserExists = async function (userId: number) {
   const existingUser = await User.findOne({ userId });
   return existingUser;
 };
-
-
 
 export const User = model<TUser, UserModel>('User', userSchema);
