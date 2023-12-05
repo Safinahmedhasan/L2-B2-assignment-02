@@ -8,19 +8,19 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
 const router = express_1.default.Router();
 // user create route
-router.post('/', user_controller_1.UserControllers.createUser);
+router.post('/users', user_controller_1.UserControllers.createUser);
 // get all user route
-router.get('/', user_controller_1.UserControllers.getAllUsers);
+router.get('/users', user_controller_1.UserControllers.getAllUsers);
 // get single user route
-router.get('/:userId', user_controller_1.UserControllers.getSingleUsers);
+router.get('/users/:userId', user_controller_1.UserControllers.getSingleUsers);
 // deleted user route
-router.delete('/:userId', user_controller_1.UserControllers.deleteUser);
+router.delete('/users/:userId', user_controller_1.UserControllers.deleteUser);
 // update user route
-router.put('/:userId', user_controller_1.UserControllers.updateUser);
-// user order create route
-router.put('/:userId/orders', user_controller_1.UserControllers.addOrderToUser);
+router.put('/users/:userId', user_controller_1.UserControllers.updateUser);
+// Add Order to User route
+router.put('/users/:userId/orders', user_controller_1.UserControllers.addOrderToUser);
 // single user order show route
-router.get('/:userId/orders', user_controller_1.UserControllers.getAllOrdersForUser);
+router.get('/users/:userId/orders', user_controller_1.UserControllers.getAllOrdersForUser);
 // single order calculate route
-router.get('/:userId/orders/total-price', user_controller_1.UserControllers.calculateTotalPriceForUser);
+router.get('/users/:userId/orders/total-price', user_controller_1.UserControllers.calculateTotalPriceForUser);
 exports.UserRouter = router;

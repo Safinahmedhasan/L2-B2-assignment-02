@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 // parser
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.use('/api/users', user_route_1.UserRouter);
+app.use('/api', user_route_1.UserRouter);
 app.get('/', (req, res) => {
     res.send(`server in running ${process.env.PORT}`);
 });

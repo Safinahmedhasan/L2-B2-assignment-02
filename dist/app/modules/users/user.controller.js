@@ -18,7 +18,7 @@ const user_validation_1 = __importDefault(require("./user.validation"));
 // Create User
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user: userData } = req.body;
+        const userData = req.body;
         const result = yield user_service_1.UserServices.createUserIntoDB(user_validation_1.default.parse(userData));
         res.status(200).json({
             success: true,
@@ -95,7 +95,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const { user: updatedUserData } = req.body;
+        const updatedUserData = req.body;
         const result = yield user_service_1.UserServices.updateUserInDB(userId, updatedUserData);
         if (!result) {
             return res
@@ -114,18 +114,17 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .json({ success: false, message: 'User not found', error: err });
     }
 });
-// Order ---------------
+// Add Order to User
 const addOrderToUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const { order } = req.body;
-        const result = yield user_service_1.UserServices.addOrderToUser(userId, order);
+        const orderData = req.body;
+        yield user_service_1.UserServices.addOrderToUser(userId, orderData);
         res.status(200).json({
             success: true,
             message: 'Order created successfully!',
-            data: result,
+            data: null,
         });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (err) {
         res.status(500).json({

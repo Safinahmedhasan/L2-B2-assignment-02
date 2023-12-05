@@ -33,13 +33,7 @@ const userSchema = new mongoose_1.Schema({
         city: { type: String, required: true },
         country: { type: String, required: true },
     },
-    orders: [
-        {
-            productName: { type: String },
-            price: { type: Number },
-            quantity: { type: Number },
-        },
-    ],
+    orders: [{ productName: String, price: Number, quantity: Number }],
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {

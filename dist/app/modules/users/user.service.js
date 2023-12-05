@@ -51,7 +51,7 @@ const getSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, functi
     const _a = existingUser.toObject(), { password } = _a, userDataWithoutPassword = __rest(_a, ["password"]);
     return userDataWithoutPassword;
 });
-// Update User 
+// Update User
 const updateUserInDB = (userId, updatedUserData) => __awaiter(void 0, void 0, void 0, function* () {
     const existingUser = yield user_model_1.User.isUserExists(userId);
     if (!existingUser) {
@@ -73,15 +73,18 @@ const deleteUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function*
     return result;
 });
 // Order Section ----
-// Added Oder
+// Add Order to User
 const addOrderToUser = (userId, orderData) => __awaiter(void 0, void 0, void 0, function* () {
     const existingUser = yield user_model_1.User.isUserExists(userId);
     if (!existingUser) {
         throw new Error('User not found');
     }
+    if (!existingUser.orders) {
+        existingUser.orders = [];
+    }
     existingUser.orders.push(orderData);
-    const result = yield existingUser.save();
-    return result;
+    yield existingUser.save();
+    return null;
 });
 // Get all Order
 const getAllOrdersForUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
